@@ -4,7 +4,7 @@ describe Board do
 	let(:water) {double :water}
 	let(:cell){double :cell, content: water, :content= => nil, hit?:nil}
 	let(:second_cell){double :second_cell, :content= => nil,content: nil, hit?: nil}
-	let(:third_cell){double :second_cell, :content= => nil, hit?: nil}
+  let(:third_cell){double :third_cell, :content= => nil, content: nil, hit?: nil}
 	let(:cell_class){double :cell_class, :new => cell}
 	let(:ship){double :ship, size: 2, sunk?: false, floating?: true }
 	let(:second_ship){double :ship, size: 2, sunk?: false }
@@ -24,14 +24,22 @@ describe Board do
 		board.place(ship,:A1)
 	end
 
-	it "places a ship in all it's positions" do 
+	it "can check that ships are placed correctly" do
+		board.grid[:A3] = third_cell
+		allow(cell).to receive(:content=).with(ship)
+		allow(second_cell).to receive(:content=).with(ship)
+		expect(third_cell).not_to receive(:content=).with(ship)
+		board.place(ship, :A1)
+	end
+
+	it "places a ship in all it's positions" do
 		board.grid[:A2] = second_cell
 		allow(cell).to receive(:content=).with(ship)
 		expect(second_cell).to receive(:content=).with(ship)
 		board.place(ship, :A1)
 	end
 
-	it "can place a ship verticall" do 
+	it "can place a ship verticall" do
 		board.grid[:B1] = second_cell
 		expect(second_cell).to receive(:content=).with(ship)
 		board.place(ship, :A1, :vertically)
@@ -42,7 +50,7 @@ describe Board do
 		expect(board.floating_ships?).to eq true
 	end
 
-	it "knows when there are no floating ships" do 
+	it "knows when there are no floating ships" do
 		sunk_ship = double :ship, size: 1, sunk?: true, floating?: false
 		allow(board).to receive(:ships).and_return [sunk_ship]
 		expect(board.floating_ships?).to eq false

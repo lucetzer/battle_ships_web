@@ -10,7 +10,7 @@ class Board
 
 	def place(ship, coord, orientation = :horizontally)
 		coords = [coord]
-		ship.size.times{coords << next_coord(coords.last, orientation)}
+		(ship.size - 1).times{coords << next_coord(coords.last, orientation)}
 		put_on_grid_if_possible(coords, ship)
 	end
 
@@ -42,7 +42,7 @@ private
 	end
 
 	def is_a_ship?(cell)
-		cell.content.respond_to?(:sunk?) 
+		cell.content.respond_to?(:sunk?)
 	end
 
 	def any_coord_not_on_grid?(coords)
@@ -64,4 +64,3 @@ private
 	end
 
 end
-
