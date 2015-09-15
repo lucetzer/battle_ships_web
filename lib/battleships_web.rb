@@ -9,8 +9,14 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/new_game' do
+    @name = params[:name]
     erb :new_game
   end
+  
+  get '/test' do
+    erb :test
+  end
+
 
   # start the server if ruby file executed directly
   run! if app_file == $0

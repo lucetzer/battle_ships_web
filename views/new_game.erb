@@ -1,5 +1,11 @@
-<form action="/new_game">
-  What's your name?
-  <input type="text" name="name">
-  <input type="submit" value="Submit">
-</form>
+<% if @name==nil %>
+  <form action="/new_game">
+    What's your name?
+    <input type="text" name="name">
+    <input type="submit" value="New Game">
+  </form>
+<% elsif @name=='' %>
+  Please enter your name.
+<% else %>
+  <%= @name %>'s awesome game
+<% end %>

@@ -10,8 +10,17 @@ feature 'Starting a new game' do
   scenario 'When I submit my name' do
     visit '/'
     click_link 'New Game'
-    #enter name in form
-    #click submit
-    expect(page).to have_content "Test"
+    fill_in 'name', with: 'Joe'
+    click_button 'New Game'
+    expect(page).to have_content "Joe's awesome game"
   end
+
+  scenario "When I don't submit my name" do
+    visit '/'
+    click_link 'New Game'
+    fill_in 'name', with: ''
+    click_button 'New Game'
+    expect(page).to have_content "Please enter your name."
+  end
+
 end
