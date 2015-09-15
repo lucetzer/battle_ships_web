@@ -42,16 +42,44 @@ class Board
 		printed_board = "<div style='height:50px; width:550px;'>"
 		[*"A".."J"].each do |l|
 			[*1..10].each do |n|
-				if grid["#{l}#{n}".to_sym].content.is_a?(Water)
-					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 2px dashed red;'> </div>"
-				elsif grid["#{l}#{n}".to_sym].content.is_a?(Ship)
-					printed_board += "<div style='background-color:#008800; height:50px; width:50px; display:inline-block; border: 2px dashed red;'> </div>"
+				if grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == true
+					printed_board += "<div style='background-color:#E2BE22; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
+				elsif grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == false
+					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
+				elsif grid["#{l}#{n}".to_sym].hit == true
+					printed_board += "<div style='background-color:#FF0000; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
+				elsif grid["#{l}#{n}".to_sym].hit == false
+					printed_board += "<div style='background-color:#008800; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
 				end
 			end
 		end
 		printed_board += "</div>"
 		printed_board
 	end
+
+	def opponent_board
+		printed_board = "<div style='height:50px; width:550px;'>"
+		[*"A".."J"].each do |l|
+			[*1..10].each do |n|
+				if grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == true
+					printed_board += "<div style='background-color:#E2BE22; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
+				elsif grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == false
+					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
+				elsif grid["#{l}#{n}".to_sym].hit == true
+					printed_board += "<div style='background-color:#FF0000; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
+				elsif grid["#{l}#{n}".to_sym].hit == false
+					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
+				end
+			end
+		end
+		printed_board += "</div>"
+		printed_board
+
+
+
+
+	end
+
 
 
 private
