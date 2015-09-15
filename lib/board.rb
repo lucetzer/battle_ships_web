@@ -1,3 +1,7 @@
+# require_relative 'cell'
+# require_relative 'water'
+# require_relative 'ship'
+
 class Board
 	attr_reader :grid
 
@@ -34,6 +38,22 @@ class Board
 		ships.count
 	end
 
+	def print_board
+		printed_board = "<div style='height:50px; width:550px;'>"
+		[*"A".."J"].each do |l|
+			[*1..10].each do |n|
+				if grid["#{l}#{n}".to_sym].content.is_a?(Water)
+					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 2px dashed red;'> </div>"
+				elsif grid["#{l}#{n}".to_sym].content.is_a?(Ship)
+					printed_board += "<div style='background-color:#008800; height:50px; width:50px; display:inline-block; border: 2px dashed red;'> </div>"
+				end
+			end
+		end
+		printed_board += "</div>"
+		printed_board
+	end
+
+
 private
 
  	def next_coord(coord, orientation)
@@ -67,3 +87,16 @@ private
 	end
 
 end
+
+
+#
+# board = Board.new(Cell)
+# ship1 = Ship.new(2)
+# ship2 = Ship.new(3)
+# ship3 = Ship.new(4)
+# board.place(ship1, :A1)
+# board.place(ship2, :C2)
+# board.place(ship3, :E4)
+#
+#
+# p board.print_board
