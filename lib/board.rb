@@ -1,10 +1,13 @@
 class Board
 	attr_reader :grid
 
-	def initialize(content)
+	def initialize(cell)
 		@grid = {}
 		[*"A".."J"].each do |l|
-			[*1..10].each {|n| @grid["#{l}#{n}".to_sym] = content.new}
+			[*1..10].each do |n|
+				@grid["#{l}#{n}".to_sym] = cell.new
+				@grid["#{l}#{n}".to_sym].content = Water.new 
+			end
 		end
 	end
 
@@ -64,3 +67,8 @@ private
 	end
 
 end
+
+# p board = Board.new(Array)
+a = [3,2]
+b = [2,3,4,5]
+p c = a & b
