@@ -26,10 +26,3 @@ require './lib/board'
 # 	coord = ("A" + (index + 1).to_s).to_sym
 # 	board2.place(ship, coord, :vertically)
 # end
-
-
-board = Board.new(Cell)
-# ship = Ship.new(2)
-# p board
-board.shoot_at(:A1)
-p board
