@@ -55,6 +55,7 @@ class BattleshipsWeb < Sinatra::Base
         @message = "Number of ships sunk: #{@sunk_ships}"
       end
     end
+    @message = "You won!" if @sunk_ships == 5
     erb :fire
   end
 
