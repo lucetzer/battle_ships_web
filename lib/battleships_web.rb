@@ -24,16 +24,19 @@ class BattleshipsWeb < Sinatra::Base
   get '/new_board' do
     session[:board] = Board.new(Cell) if session[:board] == nil
     @display = session[:board].print_board
+    session[:size] = 0
     erb :new_board
   end
 
   get '/place_ships' do
-    @coords = params[:name]
-    @coords = @coords.to_sym if params[:name] != nil
-    ship = Ship.new(2)
+    @coords = params[:coord]
+    @coords = @coords.to_sym if params[:coord] != nil
+    session[:size] += 1
+    ship = Ship.new(session[:size])
     session[:board].place(ship, @coords)
     @display = session[:board].print_board
     if session[:board].ships_count <= 4
+      @size = session[:size]
       erb :place_ships
     else
       erb :fire
@@ -41,8 +44,9 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/fire' do
-    @move = params[:name]
-    @move = @move.to_sym if params[:name] != nil
+
+    @move = params[:coord]
+    @move = @move.to_sym if params[:coord] != nil
     session[:board].shoot_at(@move) if @move != nil
     @display = session[:board].opponent_board
     erb :fire
