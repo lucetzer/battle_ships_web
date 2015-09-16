@@ -113,14 +113,11 @@ private
 end
 
 
-#
-# board = Board.new(Cell)
-# ship1 = Ship.new(2)
-# ship2 = Ship.new(3)
-# ship3 = Ship.new(4)
-# board.place(ship1, :A1)
-# board.place(ship2, :C2)
-# board.place(ship3, :E4)
-#
-#
-# p board.print_board
+
+board = Board.new(Cell)
+ship1 = Ship.new(2)
+ship2 = Ship.new(3)
+board.place(ship1, :A1)
+board.place(ship2, :C1)
+board.shoot_at(:A1)
+board.shoot_at(:A2)

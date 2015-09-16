@@ -32,8 +32,8 @@ class BattleshipsWeb < Sinatra::Base
     @coords = params[:coord]
     @coords = @coords.to_sym if params[:coord] != nil
     session[:size] += 1
-    ship = Ship.new(session[:size])
-    session[:board].place(ship, @coords)
+    session["ship#{session[:size]}"] = Ship.new(session[:size])
+    session[:board].place(session["ship#{session[:size]}"], @coords)
     @display = session[:board].print_board
     if session[:board].ships_count <= 4
       @size = session[:size]
@@ -44,11 +44,17 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/fire' do
-
     @move = params[:coord]
     @move = @move.to_sym if params[:coord] != nil
     session[:board].shoot_at(@move) if @move != nil
     @display = session[:board].opponent_board
+    @sunk_ships = 0 if session[:board].ships_count == 5
+    5.times do |index|
+      if session["ship#{index + 1}"].sunk?
+        @sunk_ships += 1
+        @message = "Number of ships sunk: #{@sunk_ships}"
+      end
+    end
     erb :fire
   end
 
@@ -64,6 +70,7 @@ class BattleshipsWeb < Sinatra::Base
     board.place(ship1, :A1)
     board.place(ship2, :C2)
     board.place(ship3, :E4)
+
     # board.shoot_at(:A1)
     # board.shoot_at(:E4)
     # board.shoot_at(:A7)
