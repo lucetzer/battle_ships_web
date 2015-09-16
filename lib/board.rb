@@ -74,10 +74,6 @@ class Board
 		end
 		printed_board += "</div>"
 		printed_board
-
-
-
-
 	end
 
 
