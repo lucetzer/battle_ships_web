@@ -114,10 +114,10 @@ end
 
 
 
-board = Board.new(Cell)
-ship1 = Ship.new(2)
-ship2 = Ship.new(3)
-board.place(ship1, :A1)
-board.place(ship2, :C1)
-board.shoot_at(:A1)
-board.shoot_at(:A2)
+# board = Board.new(Cell)
+# ship1 = Ship.new(2)
+# ship2 = Ship.new(3)
+# board.place(ship1, :A1)
+# board.place(ship2, :C1)
+# board.shoot_at(:A1)
+# board.shoot_at(:A2)
