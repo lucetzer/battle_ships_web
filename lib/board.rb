@@ -1,6 +1,6 @@
-# require_relative 'cell'
-# require_relative 'water'
-# require_relative 'ship'
+require_relative 'cell'
+require_relative 'water'
+require_relative 'ship'
 
 class Board
 	attr_reader :grid
@@ -38,45 +38,15 @@ class Board
 		ships.count
 	end
 
-	def print_board
-		printed_board = "<div style='height:50px; width:550px;'>"
-		[*"A".."J"].each do |l|
-			[*1..10].each do |n|
-				if grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == true
-					printed_board += "<div style='background-color:#E2BE22; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				elsif grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == false
-					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				elsif grid["#{l}#{n}".to_sym].hit == true
-					printed_board += "<div style='background-color:#FF0000; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				elsif grid["#{l}#{n}".to_sym].hit == false
-					printed_board += "<div style='background-color:#008800; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				end
-			end
-		end
-		printed_board += "</div>"
-		printed_board
+	def show_board(printerklass)
+		printer = printerklass.new
+		printer.print_board(self)
 	end
 
-	def opponent_board
-		printed_board = "<div style='height:50px; width:550px;'>"
-		[*"A".."J"].each do |l|
-			[*1..10].each do |n|
-				if grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == true
-					printed_board += "<div style='background-color:#E2BE22; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				elsif grid["#{l}#{n}".to_sym].content.is_a?(Water) && grid["#{l}#{n}".to_sym].content.hit == false
-					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				elsif grid["#{l}#{n}".to_sym].hit == true
-					printed_board += "<div style='background-color:#FF0000; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				elsif grid["#{l}#{n}".to_sym].hit == false
-					printed_board += "<div style='background-color:#0000FF; height:50px; width:50px; display:inline-block; border: 1px solid white;'> </div>"
-				end
-			end
-		end
-		printed_board += "</div>"
-		printed_board
+	def opponent_board(printerklass)
+		printer = printerklass.new
+		printer.opponent_board(self)
 	end
-
-
 
 private
 

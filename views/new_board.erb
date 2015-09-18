@@ -1,8 +1,8 @@
-Hello <%= @name %>!
-
 <form action="/place_ships">
   Select the position for your size 1 ship:
-  <input type="text" name="coords" required>
+  <input type="text" name="coord" required>
+  <input type="radio" name="orientation" value="horizontally">Horizontally
+  <input type="radio" name="orientation" value="vertically">Vertically
   <input type="submit" value="place ship">
 </form>
 
